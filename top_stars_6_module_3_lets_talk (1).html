@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 6 English - Module 3: Let's Talk (Top Stars 6)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        violetBrand: '#7c3aed',
+                        violetDark: '#5b21b6',
+                        coralPink: '#ff477e',
+                        sunGold: '#ffb703',
+                        skyCyan: '#00b4d8',
+                        mintGreen: '#06d6a0'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Fredoka', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #f3e8ff 0%, #e0f2fe 50%, #fce7f3 100%);
+            background-attachment: fixed;
+        }
+
+        .font-display { font-family: 'Fredoka', cursive; }
+
+        /* Custom Animations */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(124, 58, 237, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(124, 58, 237, 0.6); }
+        }
+
+        .animate-float { animation: floatSlow 4s ease-in-out infinite; }
+        .animate-glow { animation: pulseGlow 3s infinite; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px -15px rgba(124, 58, 237, 0.12);
+        }
+
+        .btn-interactive {
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-interactive:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-interactive:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .silent-letter {
+            cursor: pointer;
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            margin: 0 1px;
+            font-weight: 800;
+        }
+
+        .silent-letter:hover {
+            background-color: #fef08a;
+            color: #854d0e;
+        }
+
+        .silent-letter.selected-silent {
+            background-color: #ef4444 !important;
+            color: white !important;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+        }
+
+        .silent-letter.correct-silent {
+            background-color: #10b981 !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-6 px-3 sm:px-6 text-slate-800">
+
+    <div class="max-w-5xl mx-auto space-y-6">
+
+        <!-- Top Header Banner -->
+        <div class="glass-card rounded-3xl p-5 sm:p-7 relative overflow-hidden border-2 border-purple-200">
+            <!-- Background Decorative Blobs -->
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-purple-300/40 rounded-full blur-2xl"></div>
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-pink-300/40 rounded-full blur-2xl"></div>
+
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Branding Logo -->
+                <div class="flex items-center gap-4 text-center md:text-left">
+                    <div class="w-16 h-16 bg-gradient-to-tr from-amber-400 to-amber-500 text-white rounded-2xl flex items-center justify-center font-display font-black text-3xl shadow-lg border-2 border-white animate-float">
+                        ب
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-display font-bold text-purple-950 tracking-wide">مدارس البيارق الأهلية</h2>
+                        <p class="text-xs font-bold text-purple-600 tracking-wider uppercase">AL-BAYARIQ PRIVATE SCHOOLS</p>
+                        <div class="mt-1 inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-purple-100 text-purple-800 text-xs font-bold">
+                            <i class="fa-solid fa-graduation-cap"></i> Grade 6 – Top Stars 3
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Title & Teacher Tag -->
+                <div class="text-center md:text-right space-y-2">
+                    <h1 class="text-2xl sm:text-3xl font-display font-black bg-gradient-to-r from-purple-700 via-pink-600 to-amber-500 bg-clip-text text-transparent">
+                        Module 3: Let's Talk!
+                    </h1>
+                    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-2 rounded-2xl shadow-md text-xs sm:text-sm font-bold inline-block">
+                        <i class="fa-solid fa-chalkboard-user mr-1 text-amber-300"></i> Prepared by: Mr. Mohamed Abdalla Abo Fahad
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Input & Score Dashboard -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Student Name Box -->
+            <div class="md:col-span-2 glass-card rounded-2xl p-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+                <div class="flex-1">
+                    <label for="studentNameInput" class="block text-xs font-bold text-purple-900 mb-0.5">Student Name:</label>
+                    <input 
+                        type="text" 
+                        id="studentNameInput" 
+                        placeholder="Type your name here to get your certificate..." 
+                        class="w-full px-3.5 py-2 rounded-xl border-2 border-purple-200 focus:border-purple-600 focus:ring-2 focus:ring-purple-200 outline-none text-sm font-bold text-slate-800 bg-white/80"
+                        oninput="onStudentNameChange()"
+                    />
+                </div>
+            </div>
+
+            <!-- Score Live Widget -->
+            <div class="glass-card rounded-2xl p-4 flex items-center justify-between bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg animate-glow">
+                <div>
+                    <div class="text-xs font-bold text-purple-200 uppercase tracking-wider">Total Score</div>
+                    <div class="text-2xl font-display font-black text-amber-300">
+                        <span id="liveScore">0</span> / <span id="maxScore">30</span> Points
+                    </div>
+                </div>
+                <div class="text-3xl text-amber-300 animate-bounce">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Navigation Tabs -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button onclick="switchTab('listenSec')" id="tab-listenSec" class="btn-interactive glass-card rounded-2xl p-3 text-center font-display font-bold text-xs sm:text-sm text-purple-900 border-2 border-purple-300 bg-white">
+                <i class="fa-solid fa-circle-play text-purple-600 text-lg mb-1 block"></i> 1. Listening (p.36)
+            </button>
+            <button onclick="switchTab('pictureSec')" id="tab-pictureSec" class="btn-interactive glass-card rounded-2xl p-3 text-center font-display font-bold text-xs sm:text-sm text-purple-900">
+                <i class="fa-solid fa-images text-pink-500 text-lg mb-1 block"></i> 2. Pictures A-E (p.37)
+            </button>
+            <button onclick="switchTab('silentSec')" id="tab-silentSec" class="btn-interactive glass-card rounded-2xl p-3 text-center font-display font-bold text-xs sm:text-sm text-purple-900">
+                <i class="fa-solid fa-ghost text-amber-500 text-lg mb-1 block"></i> 3. Silent Letters (p.37)
+            </button>
+            <button onclick="switchTab('quizSec')" id="tab-quizSec" class="btn-interactive glass-card rounded-2xl p-3 text-center font-display font-bold text-xs sm:text-sm text-purple-900">
+                <i class="fa-solid fa-gamepad text-emerald-500 text-lg mb-1 block"></i> 4. Extra Challenge
+            </button>
+        </div>
+
+        <!-- TAB 1: LISTEN AND CIRCLE (PAGE 36) -->
+        <div id="sec-listenSec" class="glass-card rounded-3xl p-5 sm:p-7 space-y-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-purple-100 pb-4">
+                <div>
+                    <h2 class="text-xl font-display font-bold text-purple-950 flex items-center gap-2">
+                        <i class="fa-solid fa-headphones text-purple-600"></i> 1. Listen and circle A, B or C (Page 36)
+                    </h2>
+                    <p class="text-xs text-slate-500 font-semibold mt-1">
+                        <span class="bg-amber-300 text-amber-950 px-2 py-0.5 rounded font-bold mr-1">Tip!</span> Pay attention to the question words (When, How long) to understand what information to look for.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Listening Questions List -->
+            <div class="space-y-6" id="listenQuestionsContainer">
+                <!-- Question 1 -->
+                <div class="bg-white/80 rounded-2xl p-4 sm:p-5 border-2 border-purple-100 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-purple-950 text-sm sm:text-base">1. When was the first Super Bowl championship?</h3>
+                        <button onclick="playQuestionAudio(1, 'When was the first Super Bowl championship? Option A: 1967. Option B: 1998. Option C: 2013.')" class="btn-interactive px-3 py-1.5 bg-purple-600 text-white text-xs font-bold rounded-xl flex items-center gap-1.5">
+                            <i class="fa-solid fa-volume-high"></i> Listen Q1
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button onclick="selectListeningChoice(1, 'A', '1967')" id="lq1_A" class="btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">A</span> 1967
+                        </button>
+                        <button onclick="selectListeningChoice(1, 'B', '1998')" id="lq1_B" class="btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">B</span> 1998
+                        </button>
+                        <button onclick="selectListeningChoice(1, 'C', '2013')" id="lq1_C" class="btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">C</span> 2013
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="bg-white/80 rounded-2xl p-4 sm:p-5 border-2 border-purple-100 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-purple-950 text-sm sm:text-base">2. How long has the man been abroad?</h3>
+                        <button onclick="playQuestionAudio(2, 'How long has the man been abroad? Option A: 2 weeks. Option B: 1 month. Option C: 2 months.')" class="btn-interactive px-3 py-1.5 bg-purple-600 text-white text-xs font-bold rounded-xl flex items-center gap-1.5">
+                            <i class="fa-solid fa-volume-high"></i> Listen Q2
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button onclick="selectListeningChoice(2, 'A', '2 weeks')" id="lq2_A" class="btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">A</span> 2 weeks
+                        </button>
+                        <button onclick="selectListeningChoice(2, 'B', '1 month')" id="lq2_B" class="btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">B</span> 1 month
+                        </button>
+                        <button onclick="selectListeningChoice(2, 'C', '2 months')" id="lq2_C" class="btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">C</span> 2 months
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="bg-white/80 rounded-2xl p-4 sm:p-5 border-2 border-purple-100 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-purple-950 text-sm sm:text-base">3. When did the African Art exhibition start?</h3>
+                        <button onclick="playQuestionAudio(3, 'When did the African Art exhibition start? Option A: September. Option B: October. Option C: November.')" class="btn-interactive px-3 py-1.5 bg-purple-600 text-white text-xs font-bold rounded-xl flex items-center gap-1.5">
+                            <i class="fa-solid fa-volume-high"></i> Listen Q3
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button onclick="selectListeningChoice(3, 'A', 'September')" id="lq3_A" class="btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">A</span> September
+                        </button>
+                        <button onclick="selectListeningChoice(3, 'B', 'October')" id="lq3_B" class="btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">B</span> October
+                        </button>
+                        <button onclick="selectListeningChoice(3, 'C', 'November')" id="lq3_C" class="btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">C</span> November
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="bg-white/80 rounded-2xl p-4 sm:p-5 border-2 border-purple-100 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-purple-950 text-sm sm:text-base">4. How long has the boy been doing karate?</h3>
+                        <button onclick="playQuestionAudio(4, 'How long has the boy been doing karate? Option A: for 3 months. Option B: for 1 year. Option C: for 2 years.')" class="btn-interactive px-3 py-1.5 bg-purple-600 text-white text-xs font-bold rounded-xl flex items-center gap-1.5">
+                            <i class="fa-solid fa-volume-high"></i> Listen Q4
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button onclick="selectListeningChoice(4, 'A', 'for 3 months')" id="lq4_A" class="btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">A</span> for 3 months
+                        </button>
+                        <button onclick="selectListeningChoice(4, 'B', 'for 1 year')" id="lq4_B" class="btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">B</span> for 1 year
+                        </button>
+                        <button onclick="selectListeningChoice(4, 'C', 'for 2 years')" id="lq4_C" class="btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">C</span> for 2 years
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: PICTURES A-E & PAIRWORK (PAGES 36-37) -->
+        <div id="sec-pictureSec" class="hidden glass-card rounded-3xl p-5 sm:p-7 space-y-6">
+            <div class="border-b border-purple-100 pb-4">
+                <h2 class="text-xl font-display font-bold text-purple-950 flex items-center gap-2">
+                    <i class="fa-solid fa-images text-pink-500"></i> 2. Talk in pairs: Look at the pictures A–E (Page 37)
+                </h2>
+                <p class="text-xs text-slate-500 font-semibold mt-1">
+                    Click on each situation to see the questions, listen to dialogue examples, and build opinions!
+                </p>
+            </div>
+
+            <!-- Pictures Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="picturesGrid">
+                <!-- Card A -->
+                <div class="bg-white rounded-2xl p-4 border-2 border-pink-200 shadow-sm space-y-3 hover:border-pink-500 transition-all">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 bg-pink-100 text-pink-700 font-display font-black rounded-xl text-sm">Picture A</span>
+                        <button onclick="speakText('Why is the woman sleepy? What has she been doing? I think she has been working on her laptop all day.')" class="px-3 py-1 bg-pink-500 text-white text-xs font-bold rounded-lg hover:bg-pink-600">
+                            🔊 Audio Practice
+                        </button>
+                    </div>
+                    <div class="bg-pink-50 p-3 rounded-xl space-y-1 text-xs">
+                        <p class="font-bold text-purple-950">❓ Why is the woman sleepy? What has she been doing?</p>
+                        <p class="text-pink-700 font-semibold">💡 Reason: She has been working on her laptop all day / watching videos.</p>
+                    </div>
+                </div>
+
+                <!-- Card B -->
+                <div class="bg-white rounded-2xl p-4 border-2 border-amber-200 shadow-sm space-y-3 hover:border-amber-500 transition-all">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 font-display font-black rounded-xl text-sm">Picture B</span>
+                        <button onclick="speakText('Why is the boy happy? What has he been doing? I think he has been building a robot.')" class="px-3 py-1 bg-amber-500 text-white text-xs font-bold rounded-lg hover:bg-amber-600">
+                            🔊 Audio Practice
+                        </button>
+                    </div>
+                    <div class="bg-amber-50 p-3 rounded-xl space-y-1 text-xs">
+                        <p class="font-bold text-purple-950">❓ Why is the boy happy? What has he been doing?</p>
+                        <p class="text-amber-800 font-semibold">💡 Reason: He has been building a toy / solving a puzzle.</p>
+                    </div>
+                </div>
+
+                <!-- Card C -->
+                <div class="bg-white rounded-2xl p-4 border-2 border-cyan-200 shadow-sm space-y-3 hover:border-cyan-500 transition-all">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 bg-cyan-100 text-cyan-800 font-display font-black rounded-xl text-sm">Picture C</span>
+                        <button onclick="speakText('Why are the men worried? What have they been doing? In my opinion, they have been looking at bad results.')" class="px-3 py-1 bg-cyan-500 text-white text-xs font-bold rounded-lg hover:bg-cyan-600">
+                            🔊 Audio Practice
+                        </button>
+                    </div>
+                    <div class="bg-cyan-50 p-3 rounded-xl space-y-1 text-xs">
+                        <p class="font-bold text-purple-950">❓ Why are the men worried? What have they been doing?</p>
+                        <p class="text-cyan-800 font-semibold">💡 Reason: They have been looking at reports / discussing a difficult problem.</p>
+                    </div>
+                </div>
+
+                <!-- Card D -->
+                <div class="bg-white rounded-2xl p-4 border-2 border-emerald-200 shadow-sm space-y-3 hover:border-emerald-500 transition-all">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-display font-black rounded-xl text-sm">Picture D</span>
+                        <button onclick="speakText('Why are the boys sad? What have they been doing? I believe they have been losing a football match.')" class="px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded-lg hover:bg-emerald-600">
+                            🔊 Audio Practice
+                        </button>
+                    </div>
+                    <div class="bg-emerald-50 p-3 rounded-xl space-y-1 text-xs">
+                        <p class="font-bold text-purple-950">❓ Why are the boys sad? What have they been doing?</p>
+                        <p class="text-emerald-800 font-semibold">💡 Reason: They have been playing football and lost the match.</p>
+                    </div>
+                </div>
+
+                <!-- Card E -->
+                <div class="bg-white rounded-2xl p-4 border-2 border-purple-200 shadow-sm space-y-3 hover:border-purple-500 transition-all md:col-span-2">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 bg-purple-100 text-purple-800 font-display font-black rounded-xl text-sm">Picture E</span>
+                        <button onclick="speakText('Why is the man tired? What has he been doing? In my opinion, he has been working in the garden under the hot sun.')" class="px-3 py-1 bg-purple-600 text-white text-xs font-bold rounded-lg hover:bg-purple-700">
+                            🔊 Audio Practice
+                        </button>
+                    </div>
+                    <div class="bg-purple-50 p-3 rounded-xl space-y-1 text-xs">
+                        <p class="font-bold text-purple-950">❓ Why is the man tired? What has he been doing?</p>
+                        <p class="text-purple-800 font-semibold">💡 Reason: He has been working outside in the sun / farming all day.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Opinion Expressions Builder -->
+            <div class="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-100 rounded-2xl p-4 border-2 border-amber-300 space-y-3">
+                <h3 class="font-display font-bold text-amber-950 text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-comments text-amber-600"></i> Expressing Opinion, Agreeing & Disagreeing Table (Page 36)
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                        <span class="font-bold text-amber-800 block border-b pb-1">Expressing opinion</span>
+                        <p>• I think...</p>
+                        <p>• I believe...</p>
+                        <p>• In my opinion...</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-emerald-200 space-y-1">
+                        <span class="font-bold text-emerald-800 block border-b pb-1">Agreeing</span>
+                        <p>• I (totally) agree...</p>
+                        <p>• You have a point...</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-rose-200 space-y-1">
+                        <span class="font-bold text-rose-800 block border-b pb-1">Disagreeing</span>
+                        <p>• I see your point, but I...</p>
+                        <p>• I disagree...</p>
+                        <p>• No, I don't think so.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: SILENT LETTERS GAME (PAGE 37) -->
+        <div id="sec-silentSec" class="hidden glass-card rounded-3xl p-5 sm:p-7 space-y-6">
+            <div class="border-b border-purple-100 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div>
+                    <h2 class="text-xl font-display font-bold text-purple-950 flex items-center gap-2">
+                        <i class="fa-solid fa-ghost text-amber-500"></i> 3. Silent Letters Activity (Page 37)
+                    </h2>
+                    <p class="text-xs text-slate-500 font-semibold mt-1">
+                        Click on the <strong>Silent Letter</strong> inside each word to highlight it!
+                    </p>
+                </div>
+                <button onclick="checkAllSilentLetters()" class="btn-interactive px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow">
+                    Check Silent Letters
+                </button>
+            </div>
+
+            <!-- Words List with Clickable Letter Spans -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-4" id="silentWordsGrid">
+                <!-- Javascript will generate clickable word boxes -->
+            </div>
+
+            <div id="silentFeedback" class="text-xs font-bold text-center"></div>
+        </div>
+
+        <!-- TAB 4: EXTRA CHALLENGE QUIZ -->
+        <div id="sec-quizSec" class="hidden glass-card rounded-3xl p-5 sm:p-7 space-y-6">
+            <div class="border-b border-purple-100 pb-4">
+                <h2 class="text-xl font-display font-bold text-purple-950 flex items-center gap-2">
+                    <i class="fa-solid fa-gamepad text-emerald-500"></i> 4. Extra Interactive Quiz
+                </h2>
+                <p class="text-xs text-slate-500 font-semibold mt-1">
+                    Test your understanding of Present Perfect Continuous and Silent Letters!
+                </p>
+            </div>
+
+            <div class="space-y-4" id="extraQuizContainer">
+                <!-- Extra quiz questions populated dynamically -->
+            </div>
+
+            <div class="flex items-center gap-3 pt-2">
+                <button onclick="checkExtraQuizAnswers()" class="btn-interactive px-5 py-2.5 bg-emerald-600 text-white font-bold text-xs rounded-xl shadow">
+                    Submit Challenge
+                </button>
+                <div id="quizFeedback" class="text-xs font-bold"></div>
+            </div>
+        </div>
+
+        <!-- FINAL COMPLETION CERTIFICATE -->
+        <div id="completionCertificate" class="glass-card rounded-3xl p-6 sm:p-8 text-center space-y-4 border-4 border-amber-300 bg-gradient-to-b from-white via-amber-50/30 to-purple-50">
+            <div class="w-20 h-20 bg-gradient-to-tr from-amber-400 to-yellow-300 text-purple-950 rounded-full flex items-center justify-center mx-auto text-4xl shadow-xl border-4 border-white animate-bounce">
+                <i class="fa-solid fa-award"></i>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-display font-black text-purple-950">Certificate of Achievement</h3>
+            <p class="text-slate-600 text-xs sm:text-sm font-semibold max-w-lg mx-auto">
+                This certificate is awarded to <strong id="certStudentName" class="text-purple-800 text-lg underline font-extrabold">Student Name</strong> for successfully mastering <strong>Top Stars 6 - Module 3: Let's Talk</strong>!
+            </p>
+
+            <div class="bg-white/80 p-4 rounded-2xl border-2 border-purple-200 inline-block shadow-inner">
+                <div class="text-xs text-slate-500 font-bold uppercase">Final Score Achieved</div>
+                <div class="text-3xl font-display font-black text-purple-700">
+                    <span id="certScore">0</span> / 30 Points
+                </div>
+            </div>
+
+            <div class="border-t border-purple-200 pt-4 text-xs font-bold text-slate-600 flex flex-col sm:flex-row items-center justify-between gap-2 max-w-md mx-auto">
+                <div>🏫 <strong>مدارس البيارق الأهلية</strong></div>
+                <div>👨‍🏫 Teacher: <strong>Mr. Mohamed Abdalla Abo Fahad</strong></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Application JavaScript Logic -->
+    <script>
+        // Sound Effects (Web Audio API Synthesizer)
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'correct') {
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.4);
+            } else if (type === 'wrong') {
+                osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(180, audioCtx.currentTime + 0.15);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.3);
+            } else if (type === 'click') {
+                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            }
+        }
+
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const msg = new SpeechSynthesisUtterance(text);
+                msg.lang = 'en-US';
+                msg.rate = 0.88;
+                window.speechSynthesis.speak(msg);
+            }
+        }
+
+        // State Tracking
+        let scores = {
+            listening: {1: 0, 2: 0, 3: 0, 4: 0},
+            silent: 0,
+            quiz: 0
+        };
+
+        const listeningAnswers = {
+            1: 'A', // 1967
+            2: 'C', // 2 months
+            3: 'B', // October
+            4: 'C'  // for 2 years
+        };
+
+        // Silent Words Data (Word, Silent Index 0-based)
+        const silentWordsData = [
+            { word: 'design', silentIdx: 4, letter: 'g' },
+            { word: 'would', silentIdx: 3, letter: 'l' },
+            { word: 'walk', silentIdx: 2, letter: 'l' },
+            { word: 'comb', silentIdx: 3, letter: 'b' },
+            { word: 'talk', silentIdx: 2, letter: 'l' },
+            { word: 'climb', silentIdx: 4, letter: 'b' },
+            { word: 'foreign', silentIdx: 5, letter: 'g' },
+            { word: 'sign', silentIdx: 2, letter: 'g' },
+            { word: 'could', silentIdx: 3, letter: 'l' },
+            { word: 'should', silentIdx: 4, letter: 'l' }
+        ];
+
+        let selectedSilentIndices = {};
+
+        // Extra Quiz Questions
+        const extraQuizData = [
+            {
+                q: "1. Why is she sleepy? She ___ on her laptop all day.",
+                options: ["has been working", "worked", "is working"],
+                ans: 0
+            },
+            {
+                q: "2. Which letter is silent in the word 'climb'?",
+                options: ["c", "l", "b"],
+                ans: 2
+            },
+            {
+                q: "3. How long ___ he been doing karate?",
+                options: ["has", "have", "is"],
+                ans: 0
+            },
+            {
+                q: "4. Which phrase is used for DISAGREEING?",
+                options: ["I agree", "I see your point, but...", "In my opinion..."],
+                ans: 1
+            }
+        ];
+
+        let quizUserSelections = {};
+
+        // Navigation
+        function switchTab(tabKey) {
+            playSound('click');
+            ['listenSec', 'pictureSec', 'silentSec', 'quizSec'].forEach(t => {
+                document.getElementById(`sec-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).classList.remove('bg-purple-600', 'text-white', 'border-purple-600');
+                document.getElementById(`tab-${t}`).classList.add('glass-card');
+            });
+
+            document.getElementById(`sec-${tabKey}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabKey}`).classList.add('bg-purple-600', 'text-white', 'border-purple-600');
+        }
+
+        function onStudentNameChange() {
+            const name = document.getElementById('studentNameInput').value.trim();
+            document.getElementById('certStudentName').innerText = name !== '' ? name : 'Student Name';
+        }
+
+        function updateScoresDisplay() {
+            let listenSum = Object.values(scores.listening).reduce((a, b) => a + b, 0); // max 12
+            let total = listenSum + scores.silent + scores.quiz; // max 12 + 10 + 8 = 30
+
+            document.getElementById('liveScore').innerText = total;
+            document.getElementById('certScore').innerText = total;
+
+            if (total === 30) {
+                triggerConfetti();
+            }
+        }
+
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+
+        // Section 1: Listening
+        function playQuestionAudio(qNum, text) {
+            playSound('click');
+            speakText(text);
+        }
+
+        function selectListeningChoice(qNum, optionKey, textLabel) {
+            playSound('click');
+
+            ['A', 'B', 'C'].forEach(k => {
+                const btn = document.getElementById(`lq${qNum}_${k}`);
+                btn.className = "btn-interactive p-3 rounded-xl border-2 border-slate-200 font-display font-bold text-slate-700 hover:border-purple-500 flex items-center justify-center gap-2";
+            });
+
+            const selectedBtn = document.getElementById(`lq${qNum}_${optionKey}`);
+
+            if (optionKey === listeningAnswers[qNum]) {
+                playSound('correct');
+                selectedBtn.className = "btn-interactive p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50 font-display font-bold text-emerald-800 flex items-center justify-center gap-2 shadow";
+                scores.listening[qNum] = 3; // 3 pts per question
+            } else {
+                playSound('wrong');
+                selectedBtn.className = "btn-interactive p-3 rounded-xl border-2 border-rose-500 bg-rose-50 font-display font-bold text-rose-800 flex items-center justify-center gap-2";
+                scores.listening[qNum] = 0;
+            }
+
+            updateScoresDisplay();
+        }
+
+        // Section 3: Silent Letters Game
+        function renderSilentWords() {
+            const grid = document.getElementById('silentWordsGrid');
+            grid.innerHTML = silentWordsData.map((item, wIdx) => {
+                const lettersHtml = item.word.split('').map((char, lIdx) => `
+                    <span class="silent-letter" id="sl_${wIdx}_${lIdx}" onclick="selectSilentLetter(${wIdx}, ${lIdx})">${char}</span>
+                `).join('');
+
+                return `
+                    <div class="bg-white rounded-2xl p-3 border-2 border-purple-100 text-center space-y-2 shadow-sm">
+                        <div class="font-display font-extrabold text-lg text-purple-950">${lettersHtml}</div>
+                        <button onclick="speakText('${item.word}')" class="text-[10px] bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full font-bold">
+                            🔊 Speak
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectSilentLetter(wIdx, lIdx) {
+            playSound('click');
+            const item = silentWordsData[wIdx];
+
+            // Clear previous selections for this word
+            item.word.split('').forEach((_, idx) => {
+                const el = document.getElementById(`sl_${wIdx}_${idx}`);
+                if (el) el.classList.remove('selected-silent');
+            });
+
+            selectedSilentIndices[wIdx] = lIdx;
+            const target = document.getElementById(`sl_${wIdx}_${lIdx}`);
+            if (target) target.classList.add('selected-silent');
+        }
+
+        function checkAllSilentLetters() {
+            let correctCount = 0;
+            silentWordsData.forEach((item, wIdx) => {
+                const userChoice = selectedSilentIndices[wIdx];
+                if (userChoice === item.silentIdx) {
+                    correctCount++;
+                    const el = document.getElementById(`sl_${wIdx}_${item.silentIdx}`);
+                    if (el) el.classList.add('correct-silent');
+                }
+            });
+
+            if (correctCount === 10) playSound('correct');
+            else playSound('wrong');
+
+            scores.silent = correctCount; // 1 pt per correct word (max 10)
+            updateScoresDisplay();
+
+            const fb = document.getElementById('silentFeedback');
+            fb.className = correctCount === 10 ? "text-xs font-bold text-emerald-600 mt-2" : "text-xs font-bold text-amber-600 mt-2";
+            fb.innerText = `You identified ${correctCount}/10 silent letters correctly!`;
+        }
+
+        // Section 4: Extra Quiz
+        function renderExtraQuiz() {
+            const container = document.getElementById('extraQuizContainer');
+            container.innerHTML = extraQuizData.map((qItem, qIdx) => `
+                <div class="bg-white/80 p-4 rounded-2xl border-2 border-purple-100 space-y-2">
+                    <p class="font-bold text-purple-950 text-sm">${qItem.q}</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                        ${qItem.options.map((opt, oIdx) => `
+                            <button onclick="selectExtraQuizOption(${qIdx}, ${oIdx})" id="qOpt_${qIdx}_${oIdx}" class="p-2.5 rounded-xl border border-slate-300 font-semibold text-slate-700 hover:bg-purple-50 text-left">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectExtraQuizOption(qIdx, oIdx) {
+            playSound('click');
+            quizUserSelections[qIdx] = oIdx;
+
+            extraQuizData[qIdx].options.forEach((_, idx) => {
+                const btn = document.getElementById(`qOpt_${qIdx}_${idx}`);
+                if (idx === oIdx) {
+                    btn.className = "p-2.5 rounded-xl border-2 border-purple-600 bg-purple-100 font-bold text-purple-900 text-left shadow-sm";
+                } else {
+                    btn.className = "p-2.5 rounded-xl border border-slate-300 font-semibold text-slate-700 hover:bg-purple-50 text-left";
+                }
+            });
+        }
+
+        function checkExtraQuizAnswers() {
+            let pts = 0;
+            extraQuizData.forEach((qItem, qIdx) => {
+                if (quizUserSelections[qIdx] === qItem.ans) pts += 2; // 2 pts per question = 8 max
+            });
+
+            if (pts === 8) playSound('correct');
+            else playSound('wrong');
+
+            scores.quiz = pts;
+            updateScoresDisplay();
+
+            const fb = document.getElementById('quizFeedback');
+            fb.className = "text-xs font-bold text-emerald-600";
+            fb.innerText = `You scored ${pts}/8 points on the extra challenge!`;
+        }
+
+        // Initial Load
+        window.onload = function() {
+            renderSilentWords();
+            renderExtraQuiz();
+        };
+    </script>
+</body>
+</html>
